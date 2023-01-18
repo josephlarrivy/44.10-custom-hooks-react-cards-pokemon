@@ -13,7 +13,7 @@ const useAxios = () => {
         try {
             console.log('making request')
             let res = await axios.get(url);
-            setResponse(res.data)
+            setResponse(res)
 
         } catch (e) {
             return console.log(e)
@@ -23,7 +23,7 @@ const useAxios = () => {
     useEffect(() => {
         makeRequest();
     }, []);
-    console.log(response)
+    // console.log(response)
     return [response, makeRequest]
 }
 
