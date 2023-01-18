@@ -3,23 +3,25 @@ import { uuid } from "uuidv4";
 
 
 
-function useStackAdder(newElement) {
+function useStackAdder() {
     const [stack, setStack] = useState([]);
-    const [element, setElement] = useState(newElement)
+    
 
     function addToStack(element) {
         // setStack(stack => [...stack, {element}])
         if (stack.length < 1) {
             setStack([{
-                id: uuid(),
-                image: element
+                key: element.code,
+                image: element.image
             }])
             // console.log(JSON.stringify(element))
             // console.log(stack)
         } else {
-            setStack(stack => [...stack, {element}])
+            setStack(stack => [...stack, {
+                key: element.code,
+                image: element.image
+            }])
             console.log(`###########   ${JSON.stringify(stack)}`)
-
         }
     }
 

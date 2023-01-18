@@ -9,40 +9,38 @@ import "./PlayingCardList.css";
 
 
 function CardTable() {
-  const [response, makeRequest] = useAxios("https://deckofcardsapi.com/api/deck/new/draw/");
+  const [response, makeRequest] = useAxios();
   const [deckId, setDeckId] = useState(null);
-  const [stack, addToStack] = useStackAdder([])
+  const [stack, addToStack] = useStackAdder([]);
+  const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    async function start() {
-      console.log('checkpoint1')
-      await makeRequest();
-      console.log(response)
 
-    }
-    console.log('checkpoint2')
-    start()
-    console.log('checkpoint3')
-
-  }, [])
-
-  // console.log(`stack ${JSON.stringify(stack)}`)
-  // console.log(response.data)
-
+  async function Start() {
+    await makeRequest("https://deckofcardsapi.com/api/deck/new/shuffle")
+    // console.log(response)
+    const id = response.deck_id
+    setDeckId(id)
+    setCount(1)
+    await makeRequest(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    console.log(response.cards[0])
+    addToStack(response.cards[0])
+    console.log(stack)
+  }
 
   async function handleClick(evt) {
     evt.preventDefault();
-    // const btn = evt.target
-    await makeRequest();
-    const image = response.data.cards[0].image
-    await addToStack(image);
+    console.log(`DECKID: ${deckId}`)
+    await makeRequest(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+    console.log(response.cards[0])
+    addToStack(response.cards[0])
+    console.log(stack)
   }
 
 
-  if (stack.length < 1) {
+  if (count < 1) {
     return(
       <div>
-        <button onClick={handleClick}>Add a playing card!</button>
+        <button onClick={Start}>Start</button>
       </div>
     )
   } else {
@@ -53,12 +51,9 @@ function CardTable() {
         <button onClick={handleClick}>Add a playing card!</button>
       </div>
       <div className="PlayingCardList-card-area">
-        {/* {stack.map(element => (
-          <PlayingCard front={element.data.cards[0].image} />
-        ))} */}
-        {/* {stack.map(element => (
-          JSON.stringify(element.data.cards[0].image)
-        ))} */}
+        {stack.map(card => (
+          <PlayingCard key={card.id} front={card.image} />
+        ))}
       </div>
     </div>
   );
