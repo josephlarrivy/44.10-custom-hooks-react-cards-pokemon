@@ -5,17 +5,19 @@ import { uuid } from "uuidv4";
 
 
 function useAxios(url) {
-    const [response, setResponse] = useState(null);
+    const [response, setResponse] = useState();
+    // const [url, setUrl] = useState(incomingUrl)
 
-    async function makeRequest() {
+    const makeRequest = async () => {
         try {
             let res = await axios.get(url);
             setResponse(res)
+            // console.log(url)
         } catch (e) {
             return console.log(e)
         };
     };
-    console.log(response)
+    // console.log(response)
     return [response, makeRequest]
 }
 
