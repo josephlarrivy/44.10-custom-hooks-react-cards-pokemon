@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import uuid from "uuid";
+import { uuid } from "uuidv4";
 import axios from "axios";
 import PlayingCard from "./PlayingCard";
 import "./PlayingCardList.css";
