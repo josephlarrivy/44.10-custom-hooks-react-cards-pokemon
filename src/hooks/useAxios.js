@@ -40,7 +40,7 @@ const useAxios = () => {
         try {
             console.log('making request')
             res = await axios.get(url);
-            console.log(res)
+            // console.log(res)
         } catch (e) {
             return console.log(e)
         };
