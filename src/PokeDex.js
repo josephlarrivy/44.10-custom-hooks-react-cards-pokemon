@@ -23,9 +23,11 @@ function PokeDex() {
     // const response = await axios.get(
     //   `https://pokeapi.co/api/v2/pokemon/${name}/`
     // );
-    makeRequest(`https://pokeapi.co/api/v2/pokemon/${name}/`).then(
-    setPokemon(pokemon => [...pokemon, { ...response, id: uuid() }]));
-    console.log(pokemon)
+    const json = await makeRequest(`https://pokeapi.co/api/v2/pokemon/${name}/`).json()
+    console.log(json)
+    setPokemon(pokemon => [...pokemon, { ...response, id: uuid() }])
+    // console.log(pokemon)
+
   }
 
 
