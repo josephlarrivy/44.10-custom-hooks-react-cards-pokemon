@@ -13,7 +13,7 @@ function CardTable() {
       </header>
       <main>
         <PlayingCardList />
-        {/* <PokeDex /> */}
+        <PokeDex />
       </main>
     </div>
   );
